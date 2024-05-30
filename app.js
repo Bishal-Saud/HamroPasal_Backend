@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/p1/product", productRoutes);
+app.use("/api/p1/products", productRoutes);
 
 dbConnect();
 app.use("/ping", (req, res) => {

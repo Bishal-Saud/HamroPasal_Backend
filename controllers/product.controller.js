@@ -3,7 +3,18 @@ import AppError from "../utills/error.utill.js";
 import cloudinary from "cloudinary";
 import fs from "fs/promises";
 
-const getAllProducts = async (req, res, next) => {};
+const getAllProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find(); // Fetch all products from the database
+    res.status(200).json({
+      success: true,
+      message: "All Products here",
+      products,
+    });
+  } catch (error) {
+    next(new AppError("Failed to retrieve products", 500)); // Handle any errors
+  }
+};
 
 const createProduct = async (req, res, next) => {
   try {
