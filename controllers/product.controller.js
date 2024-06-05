@@ -48,7 +48,7 @@ const createProduct = async (req, res, next) => {
         });
         // console.log(JSON.stringify(result));
         if (result) {
-          console.log(result, "result");
+          // console.log(result, "result");
           newProduct.image = result.secure_url;
         }
 
