@@ -71,8 +71,59 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-const updateProduct = async (req, res, next) => {};
+const updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      {
+        runValidators: true,
+      }
+    );
+    if (!product) {
+      return next(
+        new AppError(
+          error.message || "Given product by id doesn't exist ! Try again",
+          500
+        )
+      );
+    }
+    res.status(200).json({
+      success: true,
+      message: "Product update Successfully",
+      product,
+    });
+  } catch (error) {
+    return next(new AppError(error.message || "Not Updated ! Try again", 500));
+  }
+};
 
-const deleteProduct = async (req, res, next) => {};
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+
+    if (!product) {
+      return next(
+        new AppError(
+          error.message || "Given product by id doesn't exist ! Try again",
+          500
+        )
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "product delete Successfully",
+    });
+  } catch (error) {
+    return next(
+      new AppError(error.message || "Product doesn't removed ! Try again", 500)
+    );
+  }
+};
 
 export { createProduct, deleteProduct, updateProduct, getAllProducts };
