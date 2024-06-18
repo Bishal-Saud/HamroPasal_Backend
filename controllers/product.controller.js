@@ -126,4 +126,9 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
+
+const totalSoldProducts = async()=>{
+  
+}
+
 export { createProduct, deleteProduct, updateProduct, getAllProducts };
